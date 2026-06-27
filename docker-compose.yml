@@ -76,5 +76,26 @@ services:
     ports:
       - "3000:3000"
 
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    user: root
+    environment:
+      # Skip the setup wizard on first boot — we configure via Jenkinsfile + init scripts.
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - JENKINS_OPTS=--httpPort=8080
+    volumes:
+      # Persist Jenkins home (plugins, jobs, credentials, build history).
+      - jenkins_home:/var/jenkins_home
+      # Mount the source tree so Jenkins can build from it.
+      - ./:/workspace:ro
+      # Bind the host docker socket so Jenkins can run `docker build` / `docker compose`.
+      # The jenkins:lts image includes the docker CLI, so we don't need to mount the binary.
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8090:8080"   # Jenkins web UI (host 8090 → container 8080; system Jenkins already on 8080)
+      - "50001:50000" # Jenkins agent JNLP port
+    restart: unless-stopped
+
 volumes:
   pgdata:
+  jenkins_home:
