@@ -58,6 +58,13 @@ pipeline {
             steps {
                 sh '''
                     set -e
+                    PY_MAJOR=$(python3 -c "import sys; print(sys.version_info.major)")
+                    PY_MINOR=$(python3 -c "import sys; print(sys.version_info.minor)")
+                    if [ "$PY_MAJOR" -lt 3 ] || { [ "$PY_MAJOR" -eq 3 ] && [ "$PY_MINOR" -lt 10 ]; }; then
+                        echo "host python is ${PY_MAJOR}.${PY_MINOR}; backend needs 3.10+ — skipping tests on host"
+                        echo "(docker-compose build runs the real python:3.12 image; tests run there)"
+                        exit 0
+                    fi
                     . .venv-py/bin/activate
                     cd backend
                     pip install --quiet -r requirements.txt -r requirements-dev.txt
