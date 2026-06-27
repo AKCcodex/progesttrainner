@@ -5,7 +5,6 @@ region-locked) falls back to ``yt-dlp`` subtitle download.
 """
 from __future__ import annotations
 
-import json
 import os
 import tempfile
 from typing import Any

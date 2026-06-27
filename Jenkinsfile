@@ -49,7 +49,7 @@ pipeline {
                     pip install --quiet --upgrade pip
                     pip install --quiet ruff==0.7.4
                     cd backend
-                    ruff check app/ || echo "ruff reported issues (non-fatal)"
+                    ruff check app/
                 '''
             }
         }

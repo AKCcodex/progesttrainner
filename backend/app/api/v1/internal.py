@@ -24,7 +24,6 @@ def ping() -> dict[str, str]:
 )
 def redeem_link_code(payload: dict, svc: UserService = Depends()) -> TelegramLinkCodeOut:  # noqa: B008
     from app.database.session import SessionLocal
-    from app.repositories.user_repo import UserRepository
 
     code = payload.get("code")
     chat_id = payload.get("chat_id")

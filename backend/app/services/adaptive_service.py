@@ -8,12 +8,11 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.logging import get_logger
-from app.models.enums import GoalStatus, LessonStatus
+from app.models.enums import GoalStatus, LessonStatus, ReviewStatus
 from app.models.goal import Goal
 from app.models.lesson import Lesson
 from app.models.quiz import QuizAttempt
 from app.models.review import Review
-from app.services.review_service import INTERVALS_DAYS
 
 
 log = get_logger(__name__)
@@ -39,7 +38,6 @@ class AdaptiveService:
     async def evaluate_goal(self, goal: Goal) -> bool:
         """Return True if we modified the goal."""
         now = datetime.now(timezone.utc)
-        seven_days_ago = now - timedelta(days=7)
         fourteen_days_ago = now - timedelta(days=14)
 
         lessons_last_7 = list(
@@ -49,7 +47,7 @@ class AdaptiveService:
                 )
             )
         )
-        completed = [l for l in lessons_last_7 if l.status == LessonStatus.done]
+        completed = [lesson for lesson in lessons_last_7 if lesson.status == LessonStatus.done]
         scheduled = len(lessons_last_7) or 1
         completion_rate = len(completed) / scheduled
 

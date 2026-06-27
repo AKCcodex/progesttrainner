@@ -67,7 +67,7 @@ class DashboardService:
             )
         )
         if lessons_30d:
-            done = sum(1 for l in lessons_30d if l.status == LessonStatus.done)
+            done = sum(1 for lesson in lessons_30d if lesson.status == LessonStatus.done)
             completion_pct = done / len(lessons_30d)
         else:
             completion_pct = 0.0
@@ -79,9 +79,9 @@ class DashboardService:
         ) or 0
 
         study_minutes = sum(
-            (l.duration_minutes or 0)
-            for l in lessons_30d
-            if l.status == LessonStatus.done
+            (lesson.duration_minutes or 0)
+            for lesson in lessons_30d
+            if lesson.status == LessonStatus.done
         )
         study_hours = round(study_minutes / 60.0, 2)
 
@@ -107,14 +107,14 @@ class DashboardService:
                 self.db.scalars(select(Lesson).where(Lesson.goal_id == goal.id))
             )
             if lessons:
-                done_n = sum(1 for l in lessons if l.status == LessonStatus.done)
+                done_n = sum(1 for lesson in lessons if lesson.status == LessonStatus.done)
                 progress = done_n / len(lessons)
             else:
                 progress = 0.0
             due_today = sum(
                 1
-                for l in lessons
-                if l.scheduled_for == date.today() and l.status == LessonStatus.pending
+                for lesson in lessons
+                if lesson.scheduled_for == date.today() and lesson.status == LessonStatus.pending
             )
             due_reviews = sum(
                 1

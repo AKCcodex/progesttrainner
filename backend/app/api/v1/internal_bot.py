@@ -91,13 +91,13 @@ def today(
     return {
         "lessons": [
             {
-                "id": str(l.id),
-                "title": l.title,
-                "description": l.description,
-                "duration_minutes": l.duration_minutes,
-                "status": l.status.value,
+                "id": str(lesson.id),
+                "title": lesson.title,
+                "description": lesson.description,
+                "duration_minutes": lesson.duration_minutes,
+                "status": lesson.status.value,
             }
-            for l in lessons
+            for lesson in lessons
         ]
     }
 

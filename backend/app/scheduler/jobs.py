@@ -16,7 +16,6 @@ from app.database.session import SessionLocal
 from app.models.enums import LessonStatus, ReviewStatus
 from app.models.goal import Goal
 from app.models.lesson import Lesson
-from app.models.notification import Notification
 from app.models.review import Review
 from app.models.user import User
 from app.services.lesson_service import LessonService
@@ -93,7 +92,7 @@ async def job_send_lesson_reminders() -> None:
             if not pending:
                 continue
             text = f"📚 Today's plan for '{goal.title}':\n" + "\n".join(
-                f"• {l.title} ({l.duration_minutes}m)" for l in pending
+                f"• {lesson.title} ({lesson.duration_minutes}m)" for lesson in pending
             )
             await channel.send(user, payload={"text": text, "kind": "lesson_reminder"})
         log.info("job_send_lesson_reminders done")

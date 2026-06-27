@@ -38,7 +38,7 @@ def list_lessons(
         lessons = svc.list_for_goal_on_date(current.id, goal_id, target)
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
-    return [LessonOut.model_validate(l) for l in lessons]
+    return [LessonOut.model_validate(lesson) for lesson in lessons]
 
 
 @router.post("/{lesson_id}/complete", response_model=LessonOut)

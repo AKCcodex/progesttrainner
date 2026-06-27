@@ -6,7 +6,6 @@ own DB session because they run in a worker process, not the FastAPI app.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
 
 from rq import Queue
 

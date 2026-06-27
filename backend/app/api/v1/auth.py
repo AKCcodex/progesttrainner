@@ -4,9 +4,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.core.deps import get_user_repo
 from app.database.session import get_db
-from app.repositories.user_repo import UserRepository
 from app.schemas.auth import LoginIn, RegisterIn, TokenOut
 from app.services.auth_service import AuthService
 

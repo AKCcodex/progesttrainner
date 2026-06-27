@@ -7,9 +7,7 @@ model — they all read it from environment variables at construction time.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
 
-import httpx
 
 from app.core.config import settings
 from app.core.logging import get_logger

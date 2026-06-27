@@ -13,7 +13,7 @@ from app.ai.prompts import (
     roadmap_prompt,
 )
 from app.core.logging import get_logger
-from app.models.enums import GoalStatus, LessonStatus, ResourceKind
+from app.models.enums import GoalStatus, LessonStatus
 from app.models.goal import Goal
 from app.models.lesson import Lesson
 from app.models.resource import Resource
@@ -42,7 +42,7 @@ def _resources_summary(resources: list[Resource]) -> str:
 def _prior_lessons(lessons: list[Lesson]) -> str:
     if not lessons:
         return ""
-    return "\n".join(f"- {l.scheduled_for}: {l.title}" for l in lessons[-10:])
+    return "\n".join(f"- {lesson.scheduled_for}: {lesson.title}" for lesson in lessons[-10:])
 
 
 class LessonService:

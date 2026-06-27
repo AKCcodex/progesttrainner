@@ -4,7 +4,6 @@ from __future__ import annotations
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.models.enums import ReviewStatus

@@ -3,7 +3,7 @@ without going through the full lesson-generation flow.
 """
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 
 from app.ai.provider import get_ai_provider
 from app.core.config import settings

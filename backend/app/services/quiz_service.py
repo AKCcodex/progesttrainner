@@ -4,17 +4,14 @@ from __future__ import annotations
 import uuid
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
-from typing import Any
 
 from sqlalchemy.orm import Session
 
 from app.ai.provider import get_ai_provider
 from app.core.logging import get_logger
 from app.models.enums import QuizKind
-from app.models.goal import Goal
 from app.models.lesson import Lesson
 from app.models.quiz import Quiz, QuizAttempt
-from app.models.resource import Resource
 from app.repositories.goal_repo import GoalRepository
 from app.repositories.lesson_repo import LessonRepository
 from app.repositories.quiz_repo import QuizAttemptRepository, QuizRepository

@@ -1,11 +1,9 @@
 """User model."""
 from __future__ import annotations
 
-import uuid
 from datetime import datetime
 
 from sqlalchemy import DateTime, String, text
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
